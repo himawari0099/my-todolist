@@ -1,0 +1,42 @@
+.text.green {
+    color: #32CD32;
+}
+
+.v-enter-active, .v-leave-active {
+    transition: .3s ease;
+}
+.v-enter, .v-leave-to {
+    opacity: 0;
+    transform: translateX(10px);
+}
+
+nav {
+    margin-bottom: 1rem;
+}
+a.selected {
+    text-decoration: underline;
+}
+.ui.checkbox {
+    width: 100%;
+}
+.ui.checkbox label .donestyle,
+.ui.checkbox+label .donestyle,
+.ui.checkbox input:focus~label .donestyle {
+    text-decoration: line-through;
+    color: lightgray;
+}
+.badge {
+    margin-left: 1rem;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.ui.form input[type=text].edit {
+    border: 1px solid #fff;
+    margin-top: -9.5px;
+    margin-bottom: -9.5px;
+}
+.ui.form input[type=text].edit:focus {
+    border: 1px solid #cce2ff;
+}
