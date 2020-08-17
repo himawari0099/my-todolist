@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+
+    </nav>
+    <div class="ui text container" id="app">
+        <h2 class="ui dividing header">私のToDoリスト</h2>
+        <div class="ui segments form">
+            <div class="ui segment field">
+                <input placeholder="今日の課題は何かな？"
+                v-model="newToDo"
+                v-on:keyup.enter="addToDo"
+                v-on:keypress.enter="setCanSubmit()">
+            </div>
+            <div class="ui segments horizontal">
+                <div class="ui segment">
+                    <p>{{todoLength}}個</p>
+                </div>
+                <div class="ui segment"
+                    style="text-transform: capitalize;"
+                    v-for="(item, index) in filterTypes"
+                    v-bind:key="index">
+                    <a v-bind:href="`#/${item}`"
+                        v-bind:class="{ selected: filter == item }"
+                        v-on:click="filter = item">
+                        {{item}}
+                    </a>
+                </div>
+                <div class="ui segment">
+                    <a href="#"
+                        v-on:click="clearToDo()">
+                        削除
+                    </a>
+                </div>
+            </div>
+            <div class="ui segment" v-if="todos.length === 0">まだアイテムがないよ...<div class=""></div></div>
+            <div class="ui segment" v-else v-for="(todo, index) in filteredTodos" v-bind:key="index">
+                <div class="ui checkbox">
+                    <input
+                        type="checkbox"
+                        v-model="todo['done']">
+                    <label>
+                        <input type="text" class="edit"
+                            v-bind:class="{donestyle:todo['done']}"
+                            v-bind:disabled="todo['done']"
+                            v-bind:value="todo['todo']"
+                            v-on:blur="doneEdit(index, $event.target.value)"
+                            v-on:keyup.enter="doneEdit(index, $event.target.value)"
+                            v-on:keyup.esc="cancelEdit(index, todo['todo'])"
+                            v-on:keypress.enter="setCanSubmit()">
+                        <transition>
+                            <span
+                                class="badge ui green text"
+                                v-if="todo['done']">
+                                Done!!
+                            </span>
+                        </transition>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
